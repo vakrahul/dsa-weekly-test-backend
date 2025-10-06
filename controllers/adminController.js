@@ -17,18 +17,19 @@ const getAllQuestions = async (req, res) => {
 };
 
 /**
- * @desc    Add a new question
+ * @desc    Add a new code-based question
  * @route   POST /api/admin/questions
  * @access  Private/Admin
  */
 const addQuestion = async (req, res) => {
-  const { questionText, options, correctAnswer } = req.body;
+  const { title, problemStatement, starterCode, testCases } = req.body;
 
   try {
     const question = new Question({
-      questionText,
-      options,
-      correctAnswer,
+      title,
+      problemStatement,
+      starterCode,
+      testCases,
     });
 
     const createdQuestion = await question.save();
@@ -46,7 +47,7 @@ const addQuestion = async (req, res) => {
  */
 const createTest = async (req, res) => {
   const { title, questions } = req.body; // questions should be an array of question IDs
-
+  
   try {
     const test = new Test({
       title,
